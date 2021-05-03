@@ -1,5 +1,6 @@
 # dotnetNamedMutex
 play with mutexes and semaphores
+...
 this shows how only one instance of the application can run at any time
 open two console windows (.NET 5 must be installed)
 "run dotnet" from the consoles:
