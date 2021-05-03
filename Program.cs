@@ -7,12 +7,17 @@ namespace dotnetNamedMutex
     {
         static void Main(string[] args)
         {
-            const bool runMutex = false;
+            //set this to false to try the counting semaphore example
+            const bool runMutex = true;
             Console.WriteLine("Hello Application");
             if (runMutex)
             {
                 Mutex myMutex = new Mutex (true, "theVeryExclusiveMutex", out bool createdNew);
                 //check if mutex is available
+                //disable this line to try the "createdNew" bool instead
+                myMutex.WaitOne();
+                Console.WriteLine("waited for one mutex");
+                
                 if (createdNew)
                 {
                     //then enter
