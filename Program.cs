@@ -7,22 +7,41 @@ namespace dotnetNamedMutex
     {
         static void Main(string[] args)
         {
+            const bool runMutex = false;
             Console.WriteLine("Hello Application");
-            Mutex myMutex = new Mutex (true, "theVeryExclusiveMutex", out bool createdNew);
-            //check if mutex is availalbe
-            if (createdNew)
+            if (runMutex)
             {
-                //then enter
-                Console.WriteLine("entering the very exciting program");
-                while (true); 
+                Mutex myMutex = new Mutex (true, "theVeryExclusiveMutex", out bool createdNew);
+                //check if mutex is available
+                if (createdNew)
+                {
+                    //then enter
+                    Console.WriteLine("entering the very exciting program");
+                    while (true); 
+                }
+                else
+                {
+                           
+                    //else exit
+                    Console.WriteLine("not enough resources to enter right now"); 
+                } 
             }
             else
             {
-                           
-                //else exit
-                Console.WriteLine("not enough resources to enter right now"); 
+                if (Semaphore.TryOpenExisting("theSomewhatExclusiveSemaphore", out var mySemaphore))
+                {
+                    Console.WriteLine("opened an existing semaphore");
+                }
+                else
+                {
+                    mySemaphore = new Semaphore(3,3,"theSomewhatExclusiveSemaphore"); 
+                    Console.WriteLine("created a new semaphore");
+                }
+                
+                mySemaphore.WaitOne();
+                Console.WriteLine("waited one semaphore");
+                while (true) ;
             }
-
         }
     }
 }
