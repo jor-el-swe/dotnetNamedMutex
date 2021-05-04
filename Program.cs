@@ -5,6 +5,7 @@ namespace dotnetNamedMutex
 {
     class Program
     {
+        //remember: one can simply use lock();
         static void Main(string[] args)
         {
             //set this to false to try the counting semaphore example
